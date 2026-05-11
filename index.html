@@ -7,60 +7,89 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- 배경 장식 요소들 -->
+    <div class="bg-decoration dec-1">📜</div>
+    <div class="bg-decoration dec-2">🖋️</div>
+    <div class="bg-decoration dec-3">⚖️</div>
+    <div class="bg-decoration dec-4">🕵️</div>
+    <div class="bg-decoration dec-5">🏛️</div>
+
     <div class="container">
         <header>
-            <h1>📜 전생 신분증 발급처</h1>
-            <p class="subtitle">당신의 보잘것없던 전생을 굳이 증명해 드립니다.</p>
+            <div class="badge">OFFICIAL OFFICE</div>
+            <h1>전생 신분증 발급처</h1>
+            <p class="subtitle">"당신의 하찮은 과거를 쌈-뽕하게 발급해 드립니다"</p>
         </header>
 
         <main>
-            <div class="input-section">
-                <input type="text" id="userName" placeholder="성함을 입력하세요..." maxlength="10">
-                <button id="issueBtn">신분증 발급받기</button>
-            </div>
+            <section class="issuance-box">
+                <div class="input-wrapper">
+                    <label for="userName">신청자 성함</label>
+                    <input type="text" id="userName" placeholder="이름을 입력하세요..." maxlength="10">
+                </div>
+                <button id="issueBtn">신분증 즉시 발급 ⚡</button>
+            </section>
 
             <!-- 로딩 화면 -->
             <div id="loading" class="hidden">
-                <div class="spinner"></div>
-                <p>전생 명부를 탈탈 터는 중...</p>
+                <div class="loading-content">
+                    <div class="spinner"></div>
+                    <p>전생 명부 탈탈 터는 중...</p>
+                    <small>전임 공무원이 커피 쏟아서 닦는 중입니다.</small>
+                </div>
             </div>
 
-            <!-- 결과 카드 -->
+            <!-- 결과 카드 (네오 브루탈리즘 스타일) -->
             <div id="resultCard" class="id-card hidden">
-                <div class="card-header">
-                    <span class="official-seal">전생증명</span>
-                    <h2>전생 신분증</h2>
-                </div>
-                <div class="card-body">
-                    <div class="photo-area">
-                        <span id="resultEmoji">❓</span>
+                <div class="card-inner">
+                    <div class="card-top">
+                        <div class="serial-no">ID-PAST-2026-X</div>
+                        <div class="card-label">PAST LIFE ID</div>
                     </div>
-                    <div class="info-area">
-                        <div class="info-group">
-                            <label>성명</label>
-                            <span id="resName">-</span>
+                    
+                    <div class="card-main">
+                        <div class="photo-container">
+                            <div id="resultEmoji" class="emoji-display">❓</div>
+                            <div class="photo-label">IDENTIFIED</div>
                         </div>
-                        <div class="info-group">
-                            <label>시대</label>
-                            <span id="resEra">-</span>
+                        
+                        <div class="info-table">
+                            <div class="info-row">
+                                <span class="label">NAME</span>
+                                <span id="resName" class="value">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">ERA</span>
+                                <span id="resEra" class="value">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">CLASS</span>
+                                <span id="resJob" class="value">-</span>
+                            </div>
                         </div>
-                        <div class="info-group">
-                            <label>직업</label>
-                            <span id="resJob">-</span>
+                    </div>
+
+                    <div class="card-story">
+                        <p id="resStory" class="story-text">-</p>
+                    </div>
+
+                    <div class="card-bottom">
+                        <div class="crime-info">
+                            <strong>[죄목/특이사항]</strong><br>
+                            <span id="resCrime">-</span>
+                        </div>
+                        <div class="official-stamp">
+                            <div class="stamp-circle">발급<br>완료</div>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <div class="story-box">
-                        <p id="resStory">-</p>
-                    </div>
-                    <div class="crime-box">
-                        <strong>죄목/특이사항:</strong> <span id="resCrime">-</span>
-                    </div>
-                    <p class="notice">본 신분증은 현생에서 아무런 쓸모가 없습니다.</p>
-                </div>
+                <div class="barcode">|| ||| | |||| | || | ||| || ||| |</div>
             </div>
         </main>
+
+        <footer>
+            <p>© 2026 전생 관리국 총무과. All rights reserved.</p>
+        </footer >
     </div>
     <script src="app.js"></script>
 </body>

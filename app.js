@@ -40,6 +40,20 @@ const pastLives = [
         story: "털이 그렇게 많음에도 불구하고 추위를 너무 타서 평생 불 피우는 법을 연구했습니다. 결국 불은 못 피우고 콧물만 고드름이 된 채 얼어붙었습니다.",
         crime: "남의 털 가죽을 몰래 빌려 입고 안 돌려줌",
         emoji: "🐘"
+    },
+    {
+        era: "고대 이집트",
+        job: "피라미드 미끄럼틀 관리자",
+        story: "피라미드 외벽이 너무 매끄러워서 아이들이 자꾸 미끄럼을 타자, 이를 단속하러 올라갔다가 본인이 제일 신나게 타고 내려왔습니다.",
+        crime: "파라오 앞에서 엉덩이로 미끄럼 타기 기술 선보임",
+        emoji: "🏺"
+    },
+    {
+        era: "대항해 시대",
+        job: "뱃멀미하는 해적왕",
+        story: "바다의 제왕이 되겠다고 나섰으나 배만 타면 구토를 하는 바람에, 평생 항구에 정박한 배 위에서만 '왕' 노릇을 했습니다.",
+        crime: "보물 상자 대신 멀미약을 훔치다 잡힘",
+        emoji: "🏴‍☠️"
     }
 ];
 
@@ -77,6 +91,10 @@ issueBtn.addEventListener('click', () => {
         document.getElementById('resStory').innerText = randomLife.story;
         document.getElementById('resCrime').innerText = randomLife.crime;
         document.getElementById('resultEmoji').innerText = randomLife.emoji;
+        
+        // 시리얼 번호 랜덤 생성 (디테일)
+        const serial = `ID-PAST-${Math.floor(1000 + Math.random() * 9000)}-${name.charCodeAt(0)}`;
+        document.querySelector('.serial-no').innerText = serial;
 
     }, 1000);
 });
