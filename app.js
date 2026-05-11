@@ -149,11 +149,24 @@ const pastLives = [
 ];
 
 const issueBtn = document.getElementById('issueBtn');
+const openManualBtn = document.getElementById('openManualBtn');
+const closeManualBtn = document.getElementById('closeManualBtn');
+const manualModal = document.getElementById('manualModal');
+
 const userNameInput = document.getElementById('userName');
 const userBirthInput = document.getElementById('userBirth');
 const userPhotoInput = document.getElementById('userPhoto');
 const loadingDiv = document.getElementById('loading');
 const resultCard = document.getElementById('resultCard');
+
+// 모달 열기/닫기
+openManualBtn.addEventListener('click', () => manualModal.classList.remove('hidden'));
+closeManualBtn.addEventListener('click', () => manualModal.classList.add('hidden'));
+window.addEventListener('click', (e) => {
+    if (e.target === manualModal.querySelector('.modal-overlay')) {
+        manualModal.classList.add('hidden');
+    }
+});
 
 issueBtn.addEventListener('click', () => {
     const name = userNameInput.value.trim();
