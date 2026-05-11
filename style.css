@@ -296,8 +296,45 @@ button:active {
     letter-spacing: 2px;
 }
 
+/* 정책 섹션 스타일 */
+.policy-section {
+    margin-top: 60px;
+    background: #fff;
+    border: var(--border-width) solid var(--black);
+    box-shadow: var(--shadow);
+    text-align: left;
+}
+
+.policy-header {
+    background: var(--black);
+    color: white;
+    padding: 10px 15px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.policy-content {
+    padding: 25px;
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: #333;
+}
+
+.policy-content h3 {
+    margin: 20px 0 10px;
+    border-left: 4px solid var(--accent-color);
+    padding-left: 10px;
+    font-size: 1rem;
+    color: var(--black);
+}
+
+.policy-content p { margin-bottom: 10px; }
+.policy-content ul { padding-left: 20px; margin-bottom: 15px; }
+.policy-content li { margin-bottom: 5px; }
+
 footer {
     margin-top: 50px;
+    padding-bottom: 20px;
     font-size: 0.8rem;
     opacity: 0.6;
 }
