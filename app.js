@@ -54,19 +54,51 @@ const pastLives = [
         story: "바다의 제왕이 되겠다고 나섰으나 배만 타면 구토를 하는 바람에, 평생 항구에 정박한 배 위에서만 '왕' 노릇을 했습니다.",
         crime: "보물 상자 대신 멀미약을 훔치다 잡힘",
         emoji: "🏴‍☠️"
+    },
+    {
+        era: "고대 로마",
+        job: "공중목욕탕 때밀이",
+        story: "귀족들의 등을 밀어주는 고귀한(?) 직업이었으나, 너무 정성스럽게 민 나머지 귀족의 피부를 광택이 날 정도로 만들어 버려 눈부심 죄로 쫓겨났습니다.",
+        crime: "올리브유 대신 참기름으로 마사지함",
+        emoji: "🛁"
+    },
+    {
+        era: "서기 4000년",
+        job: "은하계 길치 미아",
+        story: "최첨단 내비게이션을 장착하고도 안드로메다로 가는 길을 못 찾아 평생 우주 고속도로 휴게소에서 우동만 먹으며 살았습니다.",
+        crime: "블랙홀 근처에서 '무료 주차' 표지판 세우기",
+        emoji: "👨‍🚀"
+    },
+    {
+        era: "산업 혁명",
+        job: "굴뚝 청소부의 모자",
+        story: "사람이 아닌 모자였습니다. 주인님이 굴뚝에 들어갈 때마다 온갖 그을음을 대신 다 뒤집어쓰며 '이게 바로 빈티지다'라고 정신 승리하며 살았습니다.",
+        crime: "세탁기에 들어가는 것을 거부하고 가출함",
+        emoji: "🎩"
+    },
+    {
+        era: "빙하 시대",
+        job: "소심한 펭귄",
+        story: "다른 펭귄들이 멋지게 배로 미끄러질 때, 혼자서 발바닥이 시리다며 털신을 짜 달라고 엄마 펭귄에게 떼를 쓰던 울보였습니다.",
+        crime: "조약돌로 프러포즈하는 척하며 사실은 먹으려 함",
+        emoji: "🐧"
     }
 ];
 
 const issueBtn = document.getElementById('issueBtn');
 const userNameInput = document.getElementById('userName');
+const userBirthInput = document.getElementById('userBirth');
+const userPhotoInput = document.getElementById('userPhoto');
 const loadingDiv = document.getElementById('loading');
 const resultCard = document.getElementById('resultCard');
 
 issueBtn.addEventListener('click', () => {
     const name = userNameInput.value.trim();
+    const birth = userBirthInput.value;
+    const photoFile = userPhotoInput.files[0];
     
-    if (!name) {
-        alert('에헴! 이름도 없이 발급받으려고요? 성함을 대세요!');
+    if (!name || !birth) {
+        alert('에헴! 이름이랑 생일 둘 다 제대로 대세요! 하나라도 빠지면 전생 명부 안 열립니다!');
         return;
     }
 
@@ -74,6 +106,12 @@ issueBtn.addEventListener('click', () => {
     resultCard.classList.add('hidden');
     loadingDiv.classList.remove('hidden');
     issueBtn.disabled = true;
+
+    // 사진 처리 (미리 읽어두기)
+    let photoURL = null;
+    if (photoFile) {
+        photoURL = URL.createObjectURL(photoFile);
+    }
 
     // 1초 가짜 로딩
     setTimeout(() => {
@@ -86,11 +124,25 @@ issueBtn.addEventListener('click', () => {
 
         // 데이터 반영
         document.getElementById('resName').innerText = name;
+        document.getElementById('resBirth').innerText = birth;
         document.getElementById('resEra').innerText = randomLife.era;
         document.getElementById('resJob').innerText = randomLife.job;
         document.getElementById('resStory').innerText = randomLife.story;
         document.getElementById('resCrime').innerText = randomLife.crime;
-        document.getElementById('resultEmoji').innerText = randomLife.emoji;
+        
+        // 사진 또는 이모지 표시
+        const resultEmoji = document.getElementById('resultEmoji');
+        const resultImage = document.getElementById('resultImage');
+        
+        if (photoURL) {
+            resultEmoji.classList.add('hidden');
+            resultImage.classList.remove('hidden');
+            resultImage.src = photoURL;
+        } else {
+            resultEmoji.classList.remove('hidden');
+            resultImage.classList.add('hidden');
+            resultEmoji.innerText = randomLife.emoji;
+        }
         
         // 시리얼 번호 랜덤 생성 (디테일)
         const serial = `ID-PAST-${Math.floor(1000 + Math.random() * 9000)}-${name.charCodeAt(0)}`;

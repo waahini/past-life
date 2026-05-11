@@ -23,9 +23,19 @@
 
         <main>
             <section class="issuance-box">
-                <div class="input-wrapper">
-                    <label for="userName">신청자 성함</label>
-                    <input type="text" id="userName" placeholder="이름을 입력하세요..." maxlength="10">
+                <div class="input-row">
+                    <div class="input-wrapper">
+                        <label for="userName">신청자 성함</label>
+                        <input type="text" id="userName" placeholder="이름을 입력하세요..." maxlength="10">
+                    </div>
+                    <div class="input-wrapper">
+                        <label for="userBirth">현생 생년월일</label>
+                        <input type="date" id="userBirth">
+                    </div>
+                </div>
+                <div class="input-wrapper" style="margin-bottom: 20px;">
+                    <label for="userPhoto">현생 외모(사진) 첨부 <small>(선택사항)</small></label>
+                    <input type="file" id="userPhoto" accept="image/*">
                 </div>
                 <button id="issueBtn">신분증 즉시 발급 ⚡</button>
             </section>
@@ -50,6 +60,7 @@
                     <div class="card-main">
                         <div class="photo-container">
                             <div id="resultEmoji" class="emoji-display">❓</div>
+                            <img id="resultImage" class="hidden" src="" alt="전생 사진">
                             <div class="photo-label">IDENTIFIED</div>
                         </div>
                         
@@ -57,6 +68,10 @@
                             <div class="info-row">
                                 <span class="label">NAME</span>
                                 <span id="resName" class="value">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">BIRTH</span>
+                                <span id="resBirth" class="value">-</span>
                             </div>
                             <div class="info-row">
                                 <span class="label">ERA</span>
@@ -89,7 +104,7 @@
 
         <footer>
             <p>© 2026 전생 관리국 총무과. All rights reserved.</p>
-        </footer >
+        </footer>
     </div>
     <script src="app.js"></script>
 </body>
