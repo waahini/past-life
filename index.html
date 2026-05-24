@@ -16,105 +16,228 @@
     <div class="bg-decoration dec-4">🕵️</div>
     <div class="bg-decoration dec-5">🏛️</div>
 
-    <div class="container">
-        <header>
-            <div class="badge">TOTAL ENTERTAINMENT OFFICE</div>
-            <h1>괴짜 공무원 사무소</h1>
-            <p class="subtitle">"당신의 현생과 전생을 탈탈 털어드립니다"</p>
+    <div class="container main-layout">
+        <header class="full-width">
+            <div class="badge">METROPOLITAN DESTINY & ENTERTAINMENT BUREAU</div>
+            <h1>괴짜 공무원 종합 사무소</h1>
+            <p class="subtitle">"당신의 데이터로 분석하는 운명의 총체적 보고서"</p>
         </header>
 
-        <!-- 서비스 선택 메뉴 -->
-        <nav class="service-menu">
-            <button onclick="showSection('pastlife')">📜 전생 신분증</button>
-            <button onclick="showSection('mbti')">🧠 가짜 MBTI</button>
-            <button onclick="showSection('compat')">💖 궁합 보기</button>
-            <button onclick="showSection('meal')">🍱 메뉴 추천</button>
-            <button onclick="showSection('animal')">🐶 동물상 AI</button>
-        </nav>
+        <!-- 사이드바 메뉴 -->
+        <aside class="sidebar">
+            <nav class="service-menu-vertical">
+                <button onclick="showSection('pastlife')" class="menu-btn active">📜 전생 관리국</button>
+                <button onclick="showSection('mbti')">🧠 심리/본능 분석 (가짜 MBTI)</button>
+                <button onclick="showSection('compat')">💖 인연 데이터 대조 (궁합)</button>
+                <button onclick="showSection('meal')">🍱 가스트로노미 운명 (식사)</button>
+                <button onclick="showSection('animal')">🐶 형태학적 관상 분석 (AI)</button>
+                <button onclick="showSection('contact')">✉️ 민원 접수처 (문의)</button>
+            </nav>
+            <div class="sidebar-info">
+                <h4>🏛️ 공식 운영 지침</h4>
+                <p>본 사무소는 현대 과학과 고대 신비주의, 그리고 약간의 억지(?)를 결합하여 사용자에게 최상의 즐거움을 제공합니다. 모든 데이터 분석은 귀하의 브라우저 내에서 안전하게 처리됩니다.</p>
+            </div>
+        </aside>
 
-        <main>
+        <main class="content-area">
             <!-- 1. 전생 신분증 섹션 -->
             <section id="pastlife-section" class="issuance-box content-section">
-                <h2 class="section-title">📜 전생 신분증 발급</h2>
-                <div class="input-row">
-                    <div class="input-wrapper">
-                        <label for="userName">성함</label>
-                        <input type="text" id="userName" placeholder="이름..." maxlength="10">
+                <h2 class="section-title">📜 전생 데이터베이스 열람 및 신분증 발급</h2>
+                <div class="feature-description">
+                    <p>전생 관리국에서는 귀하의 성명 수리학과 생년월일의 우주적 에너지를 분석하여, 수천 년 전 어느 시대에 어떤 존재로 살았는지 추적합니다. 이는 단순한 추측이 아닌, '하찮은 전생학'의 엄격한 알고리즘에 따른 결과입니다. 전생의 기억이 현생의 무의식에 미치는 영향을 확인하고, 당신이 왜 가끔 이유 없이 멍을 때리는지에 대한 답을 찾아보세요.</p>
+                </div>
+                <div class="input-group">
+                    <div class="input-row">
+                        <div class="input-wrapper">
+                            <label>신청자 성함</label>
+                            <input type="text" class="userName" placeholder="이름 입력...">
+                        </div>
+                        <div class="input-wrapper">
+                            <label>우주적 생년월일</label>
+                            <input type="date" class="userBirth">
+                        </div>
                     </div>
                     <div class="input-wrapper">
-                        <label for="userBirth">생년월일</label>
-                        <input type="date" id="userBirth">
+                        <label>외형 데이터 (사진) <small>(선택)</small></label>
+                        <input type="file" class="userPhoto" accept="image/*">
                     </div>
                 </div>
-                <div class="input-wrapper" style="margin-bottom: 20px;">
-                    <label for="userPhoto">본인 사진 <small>(관상 분석용)</small></label>
-                    <input type="file" id="userPhoto" accept="image/*">
-                </div>
-                <button id="issueBtn">신분증 즉시 발급 ⚡</button>
+                <button onclick="issuePastLife()" class="action-btn">전생 명부 탈탈 털기 ⚡</button>
             </section>
 
             <!-- 2. 가짜 MBTI 섹션 -->
             <section id="mbti-section" class="issuance-box content-section hidden">
-                <h2 class="section-title">🧠 24가지 가짜 MBTI 검사</h2>
-                <p style="margin-bottom: 20px;">당신의 숨겨진 본능은 SEXY? CUTE? 아니면 BABO?</p>
-                <div class="input-wrapper" style="margin-bottom: 20px;">
-                    <label>성함 입력 후 검사 시작</label>
-                    <input type="text" id="mbtiName" placeholder="이름을 적어주세요...">
+                <h2 class="section-title">🧠 고등 심리 기반 본능 유형 분석 (가짜 MBTI)</h2>
+                <div class="feature-description">
+                    <p>인간의 성격은 정형화된 16가지 틀로 모두 설명할 수 없습니다. 본 사무소에서는 기존의 따분한 지표 대신, 보다 직관적이고 날 것 그대로의 본능을 분석하는 24가지 독창적 아키타입을 제시합니다. 귀하가 타인에게 비춰지는 진정한 '무드'가 섹시함인지, 귀여움인지, 혹은 감출 수 없는 바보미인지 데이터로 확인하십시오. 이 분석은 귀하의 사회적 가면 뒤에 숨겨진 진정한 자아를 찾는 여정입니다.</p>
                 </div>
-                <button id="mbtiBtn" style="background: #9c27b0; color: white;">내 가짜 MBTI 확인하기 🔍</button>
+                <div class="input-group">
+                    <div class="input-row">
+                        <div class="input-wrapper">
+                            <label>분석 대상 성함</label>
+                            <input type="text" class="userName" placeholder="이름 입력...">
+                        </div>
+                        <div class="input-wrapper">
+                            <label>심리적 생년월일</label>
+                            <input type="date" class="userBirth">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>관상 심리용 사진 <small>(선택)</small></label>
+                        <input type="file" class="userPhoto" accept="image/*">
+                    </div>
+                </div>
+                <button onclick="checkFakeMBTI()" class="action-btn" style="background: #9c27b0;">본능 유형 심층 분석 🔍</button>
                 <div id="mbtiResult" class="id-card hidden" style="margin-top: 20px; border-color: #9c27b0;">
                     <div class="card-inner" style="text-align: center;">
-                        <h3 style="color: #9c27b0;">당신의 가짜 MBTI는?</h3>
+                        <h3 style="color: #9c27b0;">분석 결과 보고서</h3>
                         <div id="mbtiValue" style="font-size: 3rem; font-family: 'Black Han Sans'; margin: 20px 0; color: #ff4081;">-</div>
-                        <p id="mbtiDesc" style="font-weight: bold;">-</p>
+                        <p id="mbtiDesc" style="font-weight: bold; padding: 0 20px;">-</p>
                     </div>
                 </div>
             </section>
 
             <!-- 3. 궁합 섹션 -->
             <section id="compat-section" class="issuance-box content-section hidden">
-                <h2 class="section-title">💖 운명의 궁합 확인</h2>
-                <div class="input-row">
-                    <div class="input-wrapper">
-                        <input type="text" id="name1" placeholder="내 이름" maxlength="10">
-                    </div>
-                    <div class="input-wrapper">
-                        <input type="text" id="name2" placeholder="상대 이름" maxlength="10">
+                <h2 class="section-title">💖 양자 얽힘 기반 인연 데이터 대조 (궁합)</h2>
+                <div class="feature-description">
+                    <p>두 존재 사이의 인연은 단순한 우연이 아닌 성명학적 파동과 탄생 주파수의 조화로 결정됩니다. 본 궁합 분석 엔진은 두 사람의 이름에 담긴 획수 에너지와 생년월일의 60갑자 조화를 계산하여 수치화합니다. 상대방과의 운명적 거리가 어느 정도인지, 전생에서부터 이어져 온 인연의 깊이가 얼마나 깊은지 확인하여 현생의 인간관계에 참고하십시오.</p>
+                </div>
+                <div class="input-group">
+                    <div class="input-row">
+                        <div class="input-wrapper">
+                            <label>본인 이름/생일/사진</label>
+                            <input type="text" id="name1" placeholder="내 이름">
+                            <input type="date" id="birth1">
+                            <input type="file" id="photo1" accept="image/*">
+                        </div>
+                        <div class="input-wrapper">
+                            <label>상대 이름/생일/사진</label>
+                            <input type="text" id="name2" placeholder="상대 이름">
+                            <input type="date" id="birth2">
+                            <input type="file" id="photo2" accept="image/*">
+                        </div>
                     </div>
                 </div>
-                <button id="compatBtn" style="background: #ff85a2; color: white;">궁합 점수 보기 😍</button>
-                <div id="compatResult" class="hidden" style="margin-top: 15px; padding: 15px; background: #fff0f5; border: 2px solid #ff85a2; border-radius: 10px; font-weight: bold; text-align: center;"></div>
+                <button onclick="checkCompatibility()" class="action-btn" style="background: #ff85a2;">인연 데이터 연산 시작 😍</button>
+                <div id="compatResult" class="hidden" style="margin-top: 15px; padding: 20px; background: #fff0f5; border: 2px solid #ff85a2; border-radius: 10px; font-weight: bold; text-align: center;"></div>
             </section>
 
             <!-- 4. 메뉴 추천 섹션 -->
             <section id="meal-section" class="issuance-box content-section hidden" style="background: #e3f2fd;">
-                <h2 class="section-title">🍱 오늘 뭐 먹지?</h2>
+                <h2 class="section-title">🍱 거시적 가스트로노미 운명학 (식사 추천)</h2>
+                <div class="feature-description">
+                    <p>귀하가 오늘 섭취하는 영양소는 미래의 운명을 결정짓는 중요한 매개체입니다. 계절의 변화와 현재 시간대의 에너지 흐름을 분석하여, 귀하의 몸과 마음이 가장 필요로 하는 최적의 메뉴를 선별해 드립니다. 아침의 가벼운 정화 식단부터 저녁의 화려한 만찬까지, 메뉴 고민으로 낭비되는 귀하의 소중한 시간을 절약하고 미식의 즐거움을 극대화하십시오.</p>
+                </div>
+                <div class="input-group">
+                    <div class="input-row">
+                        <div class="input-wrapper">
+                            <label>식객 성함</label>
+                            <input type="text" class="userName" placeholder="이름 입력...">
+                        </div>
+                        <div class="input-wrapper">
+                            <label>오늘의 기분</label>
+                            <input type="date" class="userBirth">
+                        </div>
+                    </div>
+                </div>
                 <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                    <button onclick="recommendMeal('breakfast')" class="secondary-btn" style="flex: 1; background: #fff; border-color: #2196f3;">아침 🍞</button>
-                    <button onclick="recommendMeal('lunch')" class="secondary-btn" style="flex: 1; background: #fff; border-color: #2196f3;">점심 🍛</button>
-                    <button onclick="recommendMeal('dinner')" class="secondary-btn" style="flex: 1; background: #fff; border-color: #2196f3;">저녁 🍖</button>
+                    <button onclick="recommendMeal('breakfast')" class="secondary-btn" style="flex: 1; background: #fff; border-color: #2196f3;">조식(간편) 🍞</button>
+                    <button onclick="recommendMeal('lunch')" class="secondary-btn" style="flex: 1; background: #fff; border-color: #2196f3;">중식(다양) 🍛</button>
+                    <button onclick="recommendMeal('dinner')" class="secondary-btn" style="flex: 1; background: #fff; border-color: #2196f3;">석식(만찬) 🍖</button>
                 </div>
                 <div id="mealResult" class="hidden" style="padding: 15px; background: white; border: 2px solid #2196f3; font-weight: bold; text-align: center; font-size: 1.2rem;"></div>
             </section>
 
             <!-- 5. 동물상 AI 섹션 -->
             <section id="animal-section" class="issuance-box content-section hidden" style="background: #fce4ec;">
-                <h2 class="section-title">🐶 동물상 식별 센터</h2>
-                <p style="font-size: 0.8rem; margin-bottom: 15px; color: #666;">※ 모델 로딩에 시간이 걸릴 수 있습니다 (최대 10초)</p>
-                <button type="button" id="startAiBtn" onclick="initAI()" style="background: #f06292; color: white; font-size: 1.2rem; margin-bottom: 15px;">식별기 가동 (로딩 주의) 📸</button>
+                <h2 class="section-title">🐶 신경망 기반 형태학적 관상 분석 (AI 동물상)</h2>
+                <div class="feature-description">
+                    <p>인류의 안면 구조는 진화의 과정에서 특정 동물의 형질과 유사한 패턴을 띠게 되었습니다. 본 시스템은 Google의 Teachable Machine 신경망 모델을 활용하여, 수만 장의 데이터를 학습한 AI가 귀하의 안면 근육 배치와 눈매, 콧날의 각도를 실시간으로 분석합니다. 당신이 다정다감한 강아지의 형질을 가졌는지, 도도하고 독립적인 고양이의 형질을 가졌는지 과학적으로(어느 정도는) 검증해 드립니다.</p>
+                </div>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <label>피실험자 정보</label>
+                        <input type="text" class="userName" placeholder="이름 입력">
+                        <input type="date" class="userBirth">
+                    </div>
+                </div>
+                <button type="button" id="startAiBtn" onclick="initAI()" style="background: #f06292; color: white; font-size: 1.2rem; margin-bottom: 15px; width: 100%;">AI 정밀 분석 가동 📸</button>
                 
                 <div id="aiLoading" class="hidden" style="text-align: center; margin-bottom: 15px;">
                     <div class="spinner" style="width: 30px; height: 30px;"></div>
-                    <p>AI 두뇌 풀가동 중... (데이터가 큽니다)</p>
+                    <p>고성능 인공지능 신경망 로드 중... 잠시만 기다려주세요.</p>
                 </div>
 
                 <div id="webcam-container" style="display: flex; justify-content: center; margin-bottom: 15px;"></div>
-                <div id="label-container" style="font-weight: 900; font-size: 1.1rem; text-align: center;"></div>
+                <div id="label-container" style="font-weight: 900; font-size: 1.1rem; text-align: center; background: white; border-radius: 10px; padding: 10px;"></div>
             </section>
 
-            <button id="adsenseMagicBtn" class="secondary-btn" style="background: #4caf50; color: white; margin-top: 20px;">✨ 미스테리 정보 열람 (에드센스용)</button>
-            <div id="magicContent" class="hidden" style="margin-top: 15px; padding: 15px; background: #e8f5e9; border: 2px solid #4caf50; font-size: 0.9rem; text-align: left; line-height: 1.6;"></div>
-            <button id="openManualBtn" class="secondary-btn">운영 지침서 읽기 📖</button>
+            <!-- 6. 문의 섹션 -->
+            <section id="contact-section" class="issuance-box content-section hidden" style="background: #fffde7;">
+                <h2 class="section-title">🤝 대외 협력 및 행정 지원 (문의)</h2>
+                <div class="feature-description">
+                    <p>본 사무소와의 기술 제휴, 비즈니스 협력, 혹은 서비스 운영에 대한 깊이 있는 의견이 있으신 경우 아래의 공식 채널을 통해 민원을 제기해 주시기 바랍니다. 모든 문의 사항은 관리국장의 검토를 거쳐 순차적으로 처리됩니다. 귀하의 소중한 피드백은 더 나은 서비스를 구축하는 밑거름이 됩니다.</p>
+                </div>
+                <form action="https://formspree.io/f/mwvzneop" method="POST" id="contactForm">
+                    <div class="input-wrapper" style="margin-bottom: 15px;">
+                        <label>민원인 연락처(이메일)</label>
+                        <input type="email" name="email" placeholder="example@email.com" required>
+                    </div>
+                    <div class="input-wrapper" style="margin-bottom: 15px;">
+                        <label>민원 내용</label>
+                        <textarea name="message" style="width: 100%; height: 100px; padding: 10px; border: var(--border-width) solid var(--black); box-shadow: 4px 4px 0px var(--black);" placeholder="내용을 상세히 기술해주세요..." required></textarea>
+                    </div>
+                    <button type="submit" class="action-btn" style="background: var(--black); color: white;">민원 제출하기 ✉️</button>
+                </form>
+            </section>
+
+            <!-- 결과 카드 (전생 전용) -->
+            <div id="resultCard" class="id-card hidden">
+                <!-- (기존 신분증 HTML 내용 유지) -->
+                <div class="card-inner">
+                    <div class="card-top">
+                        <div class="serial-no">ID-PAST-2026-X</div>
+                        <div class="card-label">PAST LIFE ID</div>
+                    </div>
+                    <div class="card-main">
+                        <div class="photo-container">
+                            <div id="resultEmoji" class="emoji-display">❓</div>
+                            <img id="resultImage" class="hidden" src="" alt="전생 사진">
+                            <div class="photo-label">IDENTIFIED</div>
+                        </div>
+                        <div class="info-table">
+                            <div class="info-row"><span class="label">NAME</span><span id="resName" class="value">-</span></div>
+                            <div class="info-row"><span class="label">BIRTH</span><span id="resBirth" class="value">-</span></div>
+                            <div class="info-row"><span class="label">ERA</span><span id="resEra" class="value">-</span></div>
+                            <div class="info-row"><span class="label">CLASS</span><span id="resJob" class="value">-</span></div>
+                            <div class="info-row"><span class="label">FAKE MBTI</span><span id="resMBTI" class="value" style="color: var(--accent-color);">-</span></div>
+                        </div>
+                    </div>
+                    <div class="card-story"><p id="resStory" class="story-text">-</p></div>
+                    <div class="card-bottom">
+                        <div class="crime-info"><strong>[특이사항]</strong><br><span id="resCrime">-</span></div>
+                        <div class="official-stamp"><div class="stamp-circle">발급<br>완료</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 에드센스용 하단 텍스트 필드 (항상 보임) -->
+            <article class="official-guide">
+                <h3>📖 사무소 이용 수칙 및 가이드라인</h3>
+                <p>본 괴짜 공무원 사무소는 사용자의 개인 정보를 수집하지 않으며, 입력된 사진과 데이터는 분석 직후 브라우저의 메모리에서 제거됩니다. 우리는 고품질의 콘텐츠를 제공하기 위해 정기적으로 알고리즘을 업데이트하며, 사용자 경험을 최우선으로 생각합니다. 다양한 서비스를 통해 일상의 소소한 즐거움을 찾으시길 바랍니다. 본 웹사이트의 모든 콘텐츠는 창작물이며 실제 인물이나 역사적 사건과는 무관함을 알려드립니다.</p>
+                <p>또한, Teachable Machine 기술을 이용한 동물상 분석은 조명 환경과 각도에 따라 결과가 달라질 수 있으므로 재미로만 봐주시기 바랍니다. 인연 분석 역시 과학적 근거보다는 흥미 위주의 연산임을 명시합니다.</p>
+            </article>
+        </main>
+    </div>
+
+    <!-- 로딩 화면 -->
+    <div id="loading" class="hidden">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p>중앙 서버 데이터 조회 중...</p>
+        </div>
+    </div>
 
             <!-- 제휴 문의 섹션 (Formspree) -->
             <section class="issuance-box" style="margin-top: 40px; background: #fffde7;">
