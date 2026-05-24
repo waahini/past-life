@@ -49,55 +49,51 @@ const fakeMBTIs = [
     { type: "SASSY", desc: "당당한 매력. 자기주장이 강하고 할 말은 꼭 해야 합니다." }
 ];
 
-const magicSentences = [
-    "오늘의 운세: 주머니에서 천 원짜리 지폐를 발견할 확률 87%!",
-    "전생에 당신은 아마도 세종대왕의 탕수육을 훔쳐 먹은 고양이였을 것입니다.",
-    "가짜 MBTI 연구 결과에 따르면, CUTE 타입은 숨만 쉬어도 매력이 방출된다고 합니다.",
-    "궁합 비결: 서로의 흑역사를 공유할 때 사랑은 200% 더 깊어집니다.",
-    "미래 예보: 조만간 아주 맛있는 떡볶이를 먹게 될 운명입니다.",
-    "당신의 전생 직업은 아마도 '구름 위에서 낮잠 자기 전문가'였을 가능성이 큽니다.",
-    "MBTI 분석: BABO 타입은 사실 천재적인 감각을 숨기고 있는 경우가 많습니다.",
-    "행운의 아이템: 한 짝만 남은 양말 (가방에 넣고 다니면 행운이 옵니다.)"
-];
-
 const meals = {
     breakfast: ["시리얼과 우유", "토스트와 잼", "요거트와 견과류", "사과 한 알", "따뜻한 누룽지", "바나나", "삶은 계란"],
     lunch: ["김치찌개", "돈까스", "제육덮밥", "샌드위치", "햄버거", "초밥", "쌀국수", "비빔밥", "라멘", "떡볶이"],
     dinner: ["삼겹살", "치킨", "피자", "곱창", "마라탕", "스테이크", "회", "족발", "파스타", "닭발"]
 };
 
-// 섹션 전환 함수
+// 섹션 전환 및 제목 변경
 function showSection(sectionId) {
     const sections = document.querySelectorAll('.content-section');
     sections.forEach(s => s.classList.add('hidden'));
     document.getElementById(`${sectionId}-section`).classList.remove('hidden');
     
-    // 메뉴 버튼 활성화 표시
-    const buttons = document.querySelectorAll('.service-menu-vertical button');
-    buttons.forEach(btn => btn.classList.remove('active'));
-    event.currentTarget.classList.add('active');
-    
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => item.classList.remove('active'));
+    document.querySelector(`[data-id="${sectionId}"]`).classList.add('active');
+
+    // 헤더 텍스트 변경
+    const titles = {
+        pastlife: "전생 추적 시스템",
+        mbti: "본능 아키타입 분석",
+        compat: "양자 인연 측정",
+        meal: "식생활 최적화 보고서",
+        animal: "페이스 형태학 스캔",
+        contact: "시스템 피드백"
+    };
+    document.getElementById('page-title').innerText = titles[sectionId];
+    document.querySelector('.scroll-area').scrollTop = 0;
 }
 
-// 헬퍼: 사진 파일 URL 가져오기
 function getPhotoURL(input) {
     const file = input.files[0];
     return file ? URL.createObjectURL(file) : null;
 }
 
-// 1. 전생 신분증 발급
+// 1. 전생 발급
 function issuePastLife() {
     const section = document.getElementById('pastlife-section');
     const name = section.querySelector('.userName').value.trim();
     const birth = section.querySelector('.userBirth').value;
     const photoURL = getPhotoURL(section.querySelector('.userPhoto'));
 
-    if (!name || !birth) { alert('이름과 생년월일을 정확히 입력해주세요!'); return; }
+    if (!name || !birth) { alert('데이터가 부족합니다. 이름과 좌표(생일)를 입력하십시오.'); return; }
 
     const loading = document.getElementById('loading');
     const resultCard = document.getElementById('resultCard');
-    
     loading.classList.remove('hidden');
     resultCard.classList.add('hidden');
 
@@ -107,7 +103,6 @@ function issuePastLife() {
         
         const randomLife = pastLives[Math.floor(Math.random() * pastLives.length)];
         document.getElementById('resName').innerText = name;
-        document.getElementById('resBirth').innerText = birth;
         document.getElementById('resEra').innerText = randomLife.era;
         document.getElementById('resJob').innerText = randomLife.job;
         document.getElementById('resStory').innerText = randomLife.story;
@@ -125,11 +120,11 @@ function issuePastLife() {
     }, 1500);
 }
 
-// 2. 가짜 MBTI 분석
+// 2. 가짜 MBTI
 function checkFakeMBTI() {
     const section = document.getElementById('mbti-section');
     const name = section.querySelector('.userName').value.trim();
-    if (!name) { alert('이름을 입력해주세요!'); return; }
+    if (!name) { alert('대상 식별자(이름)가 필요합니다.'); return; }
 
     const resultDiv = document.getElementById('mbtiResult');
     const mbtiValue = document.getElementById('mbtiValue');
@@ -139,52 +134,46 @@ function checkFakeMBTI() {
     mbtiValue.innerText = result.type;
     mbtiDesc.innerText = result.desc;
     resultDiv.classList.remove('hidden');
-    resultDiv.scrollIntoView({ behavior: 'smooth' });
 }
 
-// 3. 궁합 확인
+// 3. 궁합
 function checkCompatibility() {
     const n1 = document.getElementById('name1').value.trim();
     const n2 = document.getElementById('name2').value.trim();
-    if (!n1 || !n2) { alert('두 사람의 이름을 모두 입력해주세요!'); return; }
+    if (!n1 || !n2) { alert('두 주체의 데이터가 모두 필요합니다.'); return; }
 
     const score = ((n1.length + n2.length) * 7 + (n1.charCodeAt(0) + (n2.charCodeAt(0) || 0))) % 101;
-    let comment = score > 90 ? "환상의 짝꿍! 전생의 연인이 틀림없네요." : score > 70 ? "천생연분입니다! 잘 어울려요." : score > 40 ? "무난한 사이입니다. 노력이 필요해요." : "음... 서로 스타일이 많이 다르네요!";
+    let comment = score > 90 ? "완벽한 양자 공명 상태입니다." : score > 70 ? "높은 동기화율을 보입니다." : score > 40 ? "불안정한 간섭 무늬가 발견됩니다." : "데이터 충돌 위험이 감지되었습니다.";
     
     const res = document.getElementById('compatResult');
-    res.innerHTML = `💘 ${n1} & ${n2} 궁합 점수: <span style="font-size: 2rem; color: #ff4d4d;">${score}점</span><br><small>${comment}</small>`;
+    res.innerHTML = `<h3>SYNC RATE: ${score}%</h3><p>${comment}</p>`;
     res.classList.remove('hidden');
 }
 
-// 4. 메뉴 추천
+// 4. 식사 추천
 function recommendMeal(type) {
     const options = meals[type];
     const picked = options[Math.floor(Math.random() * options.length)];
     const res = document.getElementById('mealResult');
-    res.innerHTML = `🍴 운명의 메뉴: <span style="color: #2196f3;">${picked}</span> 추천합니다!`;
+    res.innerHTML = `<h3>RECOMMENDED_FUEL</h3><p style="font-size:1.5rem; color:var(--accent-primary); font-weight:800;">${picked}</p>`;
     res.classList.remove('hidden');
 }
 
-// 5. AI 동물상 분석 (복구 및 개선)
+// 5. AI 동물상 (최종 복구 버전)
 const TM_URL = "https://teachablemachine.withgoogle.com/models/wqmtkx1OP/";
 let model, webcam, labelContainer, maxPredictions;
 
 async function initAI() {
     const startBtn = document.getElementById('startAiBtn');
     const aiLoading = document.getElementById('aiLoading');
-    
     startBtn.disabled = true;
     aiLoading.classList.remove('hidden');
 
     try {
-        const modelURL = TM_URL + "model.json";
-        const metadataURL = TM_URL + "metadata.json";
-
-        model = await tmImage.load(modelURL, metadataURL);
+        model = await tmImage.load(TM_URL + "model.json", TM_URL + "metadata.json");
         maxPredictions = model.getTotalClasses();
 
-        const flip = true;
-        webcam = new tmImage.Webcam(300, 300, flip); // 크기 확대
+        webcam = new tmImage.Webcam(300, 300, true);
         await webcam.setup();
         await webcam.play();
         window.requestAnimationFrame(loopAI);
@@ -193,66 +182,33 @@ async function initAI() {
         document.getElementById("webcam-container").appendChild(webcam.canvas);
         labelContainer = document.getElementById("label-container");
         labelContainer.innerHTML = "";
-        for (let i = 0; i < maxPredictions; i++) {
-            labelContainer.appendChild(document.createElement("div"));
-        }
+        for (let i = 0; i < maxPredictions; i++) labelContainer.appendChild(document.createElement("div"));
         aiLoading.classList.add('hidden');
     } catch (e) {
-        console.error(e);
-        alert('AI 모델을 불러오거나 카메라를 켜는 데 실패했습니다. 브라우저 설정을 확인해주세요.');
+        alert('카메라 접근 실패');
         startBtn.disabled = false;
         aiLoading.classList.add('hidden');
     }
 }
 
-async function loopAI() {
-    webcam.update();
-    await predictAI();
-    window.requestAnimationFrame(loopAI);
-}
+async function loopAI() { webcam.update(); await predictAI(); window.requestAnimationFrame(loopAI); }
 
 async function predictAI() {
     const prediction = await model.predict(webcam.canvas);
     for (let i = 0; i < maxPredictions; i++) {
         const prob = (prediction[i].probability * 100).toFixed(0);
-        let className = prediction[i].className;
-        
-        // 모델 라벨 대응 (dog/cat 또는 Class 1/2)
-        let label = className;
-        if (className.toLowerCase().includes('dog') || className.includes('1')) label = "🐶 강아지상";
-        if (className.toLowerCase().includes('cat') || className.includes('2')) label = "🐱 고양이상";
+        let label = prediction[i].className;
+        if (label.toLowerCase().includes('dog') || label.includes('1')) label = "CANINE (강아지)";
+        if (label.toLowerCase().includes('cat') || label.includes('2')) label = "FELINE (고양이)";
 
         labelContainer.childNodes[i].innerHTML = `
-            <div style="margin: 5px 0;">
-                <span style="display:inline-block; width:100px;">${label}</span>
-                <div style="display:inline-block; width:150px; background:#eee; height:10px; border-radius:5px; overflow:hidden;">
-                    <div style="width:${prob}%; background:#f06292; height:100%;"></div>
+            <div style="margin:10px 0; display:flex; align-items:center; gap:10px;">
+                <span style="width:120px; font-size:0.8rem; font-weight:700;">${label}</span>
+                <div style="flex:1; background:rgba(255,255,255,0.05); height:8px; border-radius:4px; overflow:hidden;">
+                    <div style="width:${prob}%; background:var(--accent-primary); height:100%; box-shadow:0 0 10px var(--accent-primary);"></div>
                 </div>
-                <span>${prob}%</span>
+                <span style="width:40px; font-size:0.8rem;">${prob}%</span>
             </div>
         `;
     }
 }
-
-// 에드센스용 매직 버튼
-const adsenseMagicBtn = document.getElementById('adsenseMagicBtn');
-adsenseMagicBtn.addEventListener('click', () => {
-    const magicContent = document.getElementById('magicContent');
-    const randomSentences = [];
-    for(let i=0; i<5; i++) randomSentences.push(magicSentences[Math.floor(Math.random() * magicSentences.length)]);
-    
-    magicContent.innerHTML = `
-        <h4 style="margin-bottom: 10px; color: #2e7d32;">📜 중앙 관리국 데이터 심층 보고서</h4>
-        <ul style="padding-left: 20px;">
-            ${randomSentences.map(s => `<li style="margin-bottom: 8px;">${s}</li>`).join('')}
-        </ul>
-        <p style="margin-top: 15px; font-size: 0.85rem; color: #666; line-height:1.6;">본 보고서는 전생 기록과 현생의 데이터를 결합한 고도의 추론 결과입니다. 매일 데이터가 갱신되므로 자주 방문하여 귀하의 운명 흐름을 체크하시길 권장합니다.</p>
-    `;
-    magicContent.classList.remove('hidden');
-});
-
-// 운영 지침서 모달 등 기타 로직은 유지...
-const openManualBtn = document.getElementById('openManualBtn');
-const manualModal = document.getElementById('manualModal');
-if(openManualBtn) openManualBtn.onclick = () => manualModal.classList.remove('hidden');
-document.getElementById('closeManualBtn').onclick = () => manualModal.classList.add('hidden');
