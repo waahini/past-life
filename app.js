@@ -68,11 +68,11 @@ function showSection(sectionId) {
     // 헤더 텍스트 변경
     const titles = {
         pastlife: "전생 추적 시스템",
-        mbti: "본능 아키타입 분석",
-        compat: "양자 인연 측정",
-        meal: "식생활 최적화 보고서",
-        animal: "페이스 형태학 스캔",
-        contact: "시스템 피드백"
+        mbti: "가짜 MBTI 분석",
+        compat: "운명적 인연 측정",
+        meal: "오늘의 메뉴 추천",
+        animal: "동물상 테스트",
+        contact: "문의 및 제안"
     };
     document.getElementById('page-title').innerText = titles[sectionId];
     document.querySelector('.scroll-area').scrollTop = 0;
@@ -90,7 +90,7 @@ function issuePastLife() {
     const birth = section.querySelector('.userBirth').value;
     const photoURL = getPhotoURL(section.querySelector('.userPhoto'));
 
-    if (!name || !birth) { alert('데이터가 부족합니다. 이름과 좌표(생일)를 입력하십시오.'); return; }
+    if (!name || !birth) { alert('이름과 생일을 모두 입력해주세요!'); return; }
 
     const loading = document.getElementById('loading');
     const resultCard = document.getElementById('resultCard');
@@ -124,7 +124,7 @@ function issuePastLife() {
 function checkFakeMBTI() {
     const section = document.getElementById('mbti-section');
     const name = section.querySelector('.userName').value.trim();
-    if (!name) { alert('대상 식별자(이름)가 필요합니다.'); return; }
+    if (!name) { alert('이름을 입력해주세요!'); return; }
 
     const resultDiv = document.getElementById('mbtiResult');
     const mbtiValue = document.getElementById('mbtiValue');
@@ -140,13 +140,13 @@ function checkFakeMBTI() {
 function checkCompatibility() {
     const n1 = document.getElementById('name1').value.trim();
     const n2 = document.getElementById('name2').value.trim();
-    if (!n1 || !n2) { alert('두 주체의 데이터가 모두 필요합니다.'); return; }
+    if (!n1 || !n2) { alert('두 사람의 이름을 모두 입력해주세요!'); return; }
 
     const score = ((n1.length + n2.length) * 7 + (n1.charCodeAt(0) + (n2.charCodeAt(0) || 0))) % 101;
-    let comment = score > 90 ? "완벽한 양자 공명 상태입니다." : score > 70 ? "높은 동기화율을 보입니다." : score > 40 ? "불안정한 간섭 무늬가 발견됩니다." : "데이터 충돌 위험이 감지되었습니다.";
+    let comment = score > 90 ? "환상의 짝꿍입니다!" : score > 70 ? "정말 잘 어울려요." : score > 40 ? "무난한 사이입니다." : "서로 노력이 필요해요!";
     
     const res = document.getElementById('compatResult');
-    res.innerHTML = `<h3>SYNC RATE: ${score}%</h3><p>${comment}</p>`;
+    res.innerHTML = `<h3>궁합 점수: ${score}%</h3><p>${comment}</p>`;
     res.classList.remove('hidden');
 }
 
@@ -155,60 +155,69 @@ function recommendMeal(type) {
     const options = meals[type];
     const picked = options[Math.floor(Math.random() * options.length)];
     const res = document.getElementById('mealResult');
-    res.innerHTML = `<h3>RECOMMENDED_FUEL</h3><p style="font-size:1.5rem; color:var(--accent-primary); font-weight:800;">${picked}</p>`;
+    res.innerHTML = `<h3>추천 메뉴</h3><p style="font-size:1.5rem; color:var(--accent-color); font-weight:800;">${picked}</p>`;
     res.classList.remove('hidden');
 }
 
-// 5. AI 동물상 (최종 복구 버전)
+// 5. AI 동물상 (파일 업로드 버전)
 const TM_URL = "https://teachablemachine.withgoogle.com/models/wqmtkx1OP/";
-let model, webcam, labelContainer, maxPredictions;
+let model, maxPredictions;
 
-async function initAI() {
-    const startBtn = document.getElementById('startAiBtn');
+async function analyzeAnimalImage() {
+    const fileInput = document.getElementById('animalImageInput');
     const aiLoading = document.getElementById('aiLoading');
-    startBtn.disabled = true;
-    aiLoading.classList.remove('hidden');
+    const previewContainer = document.getElementById('image-preview-container');
+    const previewImg = document.getElementById('animalPreview');
+    const labelContainer = document.getElementById('label-container');
 
-    try {
-        model = await tmImage.load(TM_URL + "model.json", TM_URL + "metadata.json");
-        maxPredictions = model.getTotalClasses();
-
-        webcam = new tmImage.Webcam(300, 300, true);
-        await webcam.setup();
-        await webcam.play();
-        window.requestAnimationFrame(loopAI);
-
-        document.getElementById("webcam-container").innerHTML = "";
-        document.getElementById("webcam-container").appendChild(webcam.canvas);
-        labelContainer = document.getElementById("label-container");
-        labelContainer.innerHTML = "";
-        for (let i = 0; i < maxPredictions; i++) labelContainer.appendChild(document.createElement("div"));
-        aiLoading.classList.add('hidden');
-    } catch (e) {
-        alert('카메라 접근 실패');
-        startBtn.disabled = false;
-        aiLoading.classList.add('hidden');
+    if (!fileInput.files[0]) {
+        alert('분석할 사진 파일을 선택해주세요!');
+        return;
     }
-}
 
-async function loopAI() { webcam.update(); await predictAI(); window.requestAnimationFrame(loopAI); }
+    aiLoading.classList.remove('hidden');
+    labelContainer.innerHTML = "";
+    
+    try {
+        if (!model) {
+            model = await tmImage.load(TM_URL + "model.json", TM_URL + "metadata.json");
+            maxPredictions = model.getTotalClasses();
+        }
 
-async function predictAI() {
-    const prediction = await model.predict(webcam.canvas);
-    for (let i = 0; i < maxPredictions; i++) {
-        const prob = (prediction[i].probability * 100).toFixed(0);
-        let label = prediction[i].className;
-        if (label.toLowerCase().includes('dog') || label.includes('1')) label = "CANINE (강아지)";
-        if (label.toLowerCase().includes('cat') || label.includes('2')) label = "FELINE (고양이)";
+        const file = fileInput.files[0];
+        const imgURL = URL.createObjectURL(file);
+        previewImg.src = imgURL;
+        previewContainer.classList.remove('hidden');
 
-        labelContainer.childNodes[i].innerHTML = `
-            <div style="margin:10px 0; display:flex; align-items:center; gap:10px;">
-                <span style="width:120px; font-size:0.8rem; font-weight:700;">${label}</span>
-                <div style="flex:1; background:rgba(255,255,255,0.05); height:8px; border-radius:4px; overflow:hidden;">
-                    <div style="width:${prob}%; background:var(--accent-primary); height:100%; box-shadow:0 0 10px var(--accent-primary);"></div>
-                </div>
-                <span style="width:40px; font-size:0.8rem;">${prob}%</span>
-            </div>
-        `;
+        const img = new Image();
+        img.src = imgURL;
+        img.onload = async () => {
+            const prediction = await model.predict(img);
+            aiLoading.classList.add('hidden');
+
+            for (let i = 0; i < maxPredictions; i++) {
+                const prob = (prediction[i].probability * 100).toFixed(0);
+                let label = prediction[i].className;
+                if (label.toLowerCase().includes('dog') || label.includes('1')) label = "🐶 강아지상";
+                if (label.toLowerCase().includes('cat') || label.includes('2')) label = "🐱 고양이상";
+
+                const resultRow = document.createElement("div");
+                resultRow.style.margin = "15px 0";
+                resultRow.style.display = "flex";
+                resultRow.style.alignItems = "center";
+                resultRow.style.gap = "15px";
+                resultRow.innerHTML = `
+                    <span style="width:100px; font-family:'Do Hyeon'; font-size:1.2rem;">${label}</span>
+                    <div style="flex:1; background:rgba(0,0,0,0.05); height:15px; border-radius:10px; border:2px solid var(--text-color); overflow:hidden;">
+                        <div style="width:${prob}%; background:var(--accent-color); height:100%;"></div>
+                    </div>
+                    <span style="width:50px; font-weight:900;">${prob}%</span>
+                `;
+                labelContainer.appendChild(resultRow);
+            }
+        };
+    } catch (e) {
+        alert('분석 중 오류가 발생했습니다.');
+        aiLoading.classList.add('hidden');
     }
 }

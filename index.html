@@ -15,31 +15,31 @@
         <aside class="app-sidebar">
             <div class="logo">
                 <span class="logo-icon">💠</span>
-                <span class="logo-text">DESTINY AI</span>
+                <span class="logo-text">운명 분석소</span>
             </div>
             <nav class="nav-menu">
                 <button onclick="showSection('pastlife')" class="nav-item active" data-id="pastlife">
                     <span class="icon">📜</span> 전생 추적 시스템
                 </button>
                 <button onclick="showSection('mbti')" class="nav-item" data-id="mbti">
-                    <span class="icon">🧠</span> 본능 아키타입
+                    <span class="icon">🧠</span> 가짜 MBTI 분석
                 </button>
                 <button onclick="showSection('compat')" class="nav-item" data-id="compat">
-                    <span class="icon">💖 양자 인연 측정</span>
+                    <span class="icon">💖 운명적 궁합 측정</span>
                 </button>
                 <button onclick="showSection('meal')" class="nav-item" data-id="meal">
-                    <span class="icon">🍱 식생활 최적화</span>
+                    <span class="icon">🍱 오늘의 메뉴 추천</span>
                 </button>
                 <button onclick="showSection('animal')" class="nav-item" data-id="animal">
-                    <span class="icon">🐶 페이스 형태학</span>
+                    <span class="icon">🐶 동물상 테스트</span>
                 </button>
                 <button onclick="showSection('contact')" class="nav-item" data-id="contact">
-                    <span class="icon">✉️ 시스템 피드백</span>
+                    <span class="icon">✉️ 문의 및 제안</span>
                 </button>
             </nav>
             <div class="sidebar-footer">
                 <div class="status-indicator">
-                    <span class="dot"></span> System Online
+                    <span class="dot"></span> 시스템 정상 가동 중
                 </div>
             </div>
         </aside>
@@ -49,10 +49,10 @@
             <header class="main-header">
                 <div class="header-info">
                     <h1 id="page-title">전생 추적 시스템</h1>
-                    <p id="page-subtitle">Personal Destiny Tracking & Analysis</p>
+                    <p id="page-subtitle">당신의 과거 데이터를 추적하고 분석합니다</p>
                 </div>
                 <div class="user-profile">
-                    <span class="guest-label">GUEST_USER_024</span>
+                    <span class="guest-label">방문객_024</span>
                 </div>
             </header>
 
@@ -60,56 +60,56 @@
                 <!-- 1. 전생 신분증 섹션 -->
                 <section id="pastlife-section" class="content-section card">
                     <div class="section-header">
-                        <h2>SYSTEM.RECALL: 전생 데이터베이스</h2>
-                        <span class="tag">DEEP_SCAN</span>
+                        <h2>전생 기록 복원</h2>
+                        <span class="tag">정밀 스캔</span>
                     </div>
                     <div class="tech-info">
-                        본 모듈은 성명학적 주파수와 탄생 좌표를 기반으로 귀하의 전생 데이터를 재구성합니다. 수천 년의 시간을 관통하는 데이터 스트림을 통해 귀하의 본질적인 자아를 탐색하십시오. 모든 연산은 양자 알고리즘을 통해 계산되며, 결과는 귀하의 현생 성격 형성에 결정적인 단서를 제공할 수 있습니다.
+                        이름과 태어난 날짜를 통해 당신이 수천 년 전 어떤 삶을 살았는지 확인해보세요. 과거의 기억은 현재 당신의 성격에 깊은 영향을 미칩니다.
                     </div>
                     <div class="input-grid">
                         <div class="field">
-                            <label>IDENTIFIER (성함)</label>
+                            <label>이름</label>
                             <input type="text" class="userName" placeholder="이름을 입력하세요">
                         </div>
                         <div class="field">
-                            <label>COORDINATES (생년월일)</label>
+                            <label>생년월일</label>
                             <input type="date" class="userBirth">
                         </div>
                         <div class="field full">
-                            <label>SCANNER (관상 사진 첨부)</label>
+                            <label>분석용 사진 <small>(선택)</small></label>
                             <input type="file" class="userPhoto" accept="image/*">
                         </div>
                     </div>
-                    <button onclick="issuePastLife()" class="btn-primary">데이터 재구성 시작</button>
+                    <button onclick="issuePastLife()" class="btn-primary">전생 찾기 시작</button>
                 </section>
 
                 <!-- 2. 가짜 MBTI 섹션 -->
                 <section id="mbti-section" class="content-section card hidden">
                     <div class="section-header">
-                        <h2>ARCHETYPE.ANALYSIS: 가짜 MBTI</h2>
-                        <span class="tag">PSYCHO_GEOMETRY</span>
+                        <h2>가짜 MBTI 본능 분석</h2>
+                        <span class="tag">심리 분석</span>
                     </div>
                     <div class="tech-info">
-                        정형화된 성격 지표를 넘어선 인간의 원초적 본능을 24가지 아키타입으로 분류합니다. 귀하가 사회적으로 구축한 페르소나 아래 숨겨진 순수한 '본능적 무드'를 추출합니다. 섹시함, 귀여움, 혹은 순수한 바보미 등 귀하를 설명하는 가장 원색적인 키워드를 데이터로 증명합니다.
+                        당신의 진짜 속마음은 어떤 모습일까요? 24가지의 독특한 본능 아키타입 중 당신에게 딱 맞는 유형을 찾아드립니다.
                     </div>
                     <div class="input-grid">
                         <div class="field">
-                            <label>TARGET_NAME</label>
+                            <label>이름</label>
                             <input type="text" class="userName" placeholder="이름 입력">
                         </div>
                         <div class="field">
-                            <label>TEMPORAL_DATA</label>
+                            <label>생년월일</label>
                             <input type="date" class="userBirth">
                         </div>
                         <div class="field full">
-                            <label>BIOMETRIC_DATA</label>
+                            <label>심리 분석용 사진 <small>(선택)</small></label>
                             <input type="file" class="userPhoto" accept="image/*">
                         </div>
                     </div>
-                    <button onclick="checkFakeMBTI()" class="btn-primary" style="background: linear-gradient(135deg, #9c27b0, #e91e63);">본능 추출 프로세스 가동</button>
+                    <button onclick="checkFakeMBTI()" class="btn-primary" style="background: linear-gradient(135deg, #9c27b0, #e91e63);">본능 분석 시작</button>
                     <div id="mbtiResult" class="result-box hidden">
                         <div class="result-content">
-                            <h3>추출된 본능 아키타입</h3>
+                            <h3>분석된 당신의 본능</h3>
                             <div id="mbtiValue" class="display-val">-</div>
                             <p id="mbtiDesc" class="display-desc">-</p>
                         </div>
@@ -119,48 +119,48 @@
                 <!-- 3. 궁합 섹션 -->
                 <section id="compat-section" class="content-section card hidden">
                     <div class="section-header">
-                        <h2>QUANTUM.ENTANGLEMENT: 양자 인연 측정</h2>
-                        <span class="tag">SYNC_RATE</span>
+                        <h2>운명적 인연 측정</h2>
+                        <span class="tag">동기화율</span>
                     </div>
                     <div class="tech-info">
-                        두 개체 사이의 성명학적 간섭 무늬와 생년월일의 에너지 공명을 측정하여 인연의 동기화율(Sync Rate)을 계산합니다. 전생으로부터 이어진 데이터 얽힘 현상을 분석하여 현생에서의 관계 지속 가능성과 상호 보완적 에너지를 수치화합니다.
+                        두 사람의 이름과 생일 데이터를 통해 서로 얼마나 잘 어울리는지 측정합니다. 전생부터 이어진 끈끈한 인연을 수치로 확인하세요.
                     </div>
                     <div class="dual-input">
                         <div class="input-sub-card">
-                            <h4>SUBJECT A</h4>
+                            <h4>본인 정보</h4>
                             <input type="text" id="name1" placeholder="이름">
                             <input type="date" id="birth1">
                             <input type="file" id="photo1" accept="image/*">
                         </div>
-                        <div class="sync-icon">⚡</div>
+                        <div class="sync-icon">💖</div>
                         <div class="input-sub-card">
-                            <h4>SUBJECT B</h4>
+                            <h4>상대 정보</h4>
                             <input type="text" id="name2" placeholder="이름">
                             <input type="date" id="birth2">
                             <input type="file" id="photo2" accept="image/*">
                         </div>
                     </div>
-                    <button onclick="checkCompatibility()" class="btn-primary" style="background: linear-gradient(135deg, #ff4081, #ff80ab);">인연 동기화율 계산</button>
+                    <button onclick="checkCompatibility()" class="btn-primary" style="background: linear-gradient(135deg, #ff4081, #ff80ab);">인연 궁합 확인</button>
                     <div id="compatResult" class="result-box hidden"></div>
                 </section>
 
                 <!-- 4. 메뉴 추천 섹션 -->
                 <section id="meal-section" class="content-section card hidden">
                     <div class="section-header">
-                        <h2>GASTRO.OPTIMIZER: 식생활 최적화</h2>
-                        <span class="tag">BIO_FUEL</span>
+                        <h2>오늘의 메뉴 추천</h2>
+                        <span class="tag">에너지 보충</span>
                     </div>
                     <div class="tech-info">
-                        현재 시간대의 우주적 흐름과 귀하의 생체 데이터를 대조하여 가장 효율적인 영양 공급원을 선별합니다. 단순한 메뉴 선택을 넘어, 귀하의 오늘의 운을 극대화할 수 있는 '운명적 미식'을 제안합니다. 아침, 점심, 저녁의 에너지 레벨에 맞춘 최적화 보고서를 확인하십시오.
+                        오늘 당신의 기분과 운세에 딱 맞는 메뉴를 제안해 드립니다. 무엇을 먹을지 고민되는 순간, 운명에 맡겨보세요.
                     </div>
                     <div class="input-grid">
-                        <div class="field"><label>NAME</label><input type="text" class="userName"></div>
-                        <div class="field"><label>DATE</label><input type="date" class="userBirth"></div>
+                        <div class="field"><label>성함</label><input type="text" class="userName"></div>
+                        <div class="field"><label>생일</label><input type="date" class="userBirth"></div>
                     </div>
                     <div class="meal-btns">
-                        <button onclick="recommendMeal('breakfast')" class="meal-btn">MORNING</button>
-                        <button onclick="recommendMeal('lunch')" class="meal-btn">NOON</button>
-                        <button onclick="recommendMeal('dinner')" class="meal-btn">NIGHT</button>
+                        <button onclick="recommendMeal('breakfast')" class="meal-btn">아침 🍞</button>
+                        <button onclick="recommendMeal('lunch')" class="meal-btn">점심 🍛</button>
+                        <button onclick="recommendMeal('dinner')" class="meal-btn">저녁 🍖</button>
                     </div>
                     <div id="mealResult" class="result-box hidden"></div>
                 </section>
@@ -168,67 +168,73 @@
                 <!-- 5. 동물상 AI 섹션 -->
                 <section id="animal-section" class="content-section card hidden">
                     <div class="section-header">
-                        <h2>MORPHOLOGY.AI: 페이스 형태학</h2>
-                        <span class="tag">NEURAL_NET</span>
+                        <h2>강아지상 고양이상 테스트</h2>
+                        <span class="tag">이미지 분석</span>
                     </div>
                     <div class="tech-info">
-                        수백만 개의 안면 데이터셋을 학습한 신경망 모델이 귀하의 비주얼 토큰을 분석합니다. 진화론적 관점에서 귀하의 이목구비가 어떤 동물적 특질에 가장 근접한지 확인하십시오. 조명과 각도를 최적화하여 AI의 정밀 스캔을 시작하십시오.
+                        사진 파일을 올려주시면 인공지능이 당신의 얼굴형을 분석하여 어떤 동물과 닮았는지 알려줍니다. 정면 사진을 올리면 더 정확합니다!
                     </div>
                     <div class="input-grid">
-                        <div class="field"><label>SCAN_TARGET</label><input type="text" class="userName"></div>
-                        <div class="field"><label>BIRTH_DATA</label><input type="date" class="userBirth"></div>
+                        <div class="field"><label>이름</label><input type="text" class="userName"></div>
+                        <div class="field"><label>생일</label><input type="date" class="userBirth"></div>
+                        <div class="field full">
+                            <label>얼굴 사진 업로드 (이미지 파일)</label>
+                            <input type="file" id="animalImageInput" accept="image/*">
+                        </div>
                     </div>
-                    <button id="startAiBtn" onclick="initAI()" class="btn-primary" style="background: linear-gradient(135deg, #00c853, #64dd17);">AI 신경망 스캔 가동</button>
+                    <button id="startAiBtn" onclick="analyzeAnimalImage()" class="btn-primary" style="background: linear-gradient(135deg, #00c853, #64dd17);">분석 결과 보기</button>
                     
                     <div id="aiLoading" class="hidden">
                         <div class="loader"></div>
-                        <p>모델 데이터 스트리밍 중...</p>
+                        <p>인공지능이 사진을 분석 중입니다...</p>
                     </div>
-                    <div id="webcam-container"></div>
-                    <div id="label-container"></div>
+                    <div id="image-preview-container" class="hidden" style="margin-top: 20px; text-align: center;">
+                        <img id="animalPreview" src="" style="max-width: 100%; border-radius: 20px; border: 4px solid var(--text-color);">
+                    </div>
+                    <div id="label-container" style="margin-top: 20px;"></div>
                 </section>
 
                 <!-- 6. 문의 섹션 -->
                 <section id="contact-section" class="content-section card hidden">
                     <div class="section-header">
-                        <h2>SYSTEM.TICKET: 피드백 접수</h2>
+                        <h2>문의 접수</h2>
                     </div>
                     <form action="https://formspree.io/f/mwvzneop" method="POST">
-                        <div class="field"><label>SENDER_EMAIL</label><input type="email" name="email" required></div>
-                        <div class="field"><label>LOG_MESSAGE</label><textarea name="message" required></textarea></div>
-                        <button type="submit" class="btn-primary" style="background: #333;">피드백 전송</button>
+                        <div class="field"><label>답변받을 이메일</label><input type="email" name="email" required></div>
+                        <div class="field"><label>문의 내용</label><textarea name="message" required></textarea></div>
+                        <button type="submit" class="btn-primary" style="background: #333;">문의 전송</button>
                     </form>
                 </section>
 
                 <!-- 결과 카드 (전생 전용) -->
                 <div id="resultCard" class="id-card-modern hidden">
                     <div class="id-card-content">
-                        <div class="id-header">PAST_LIFE_CERTIFICATE</div>
+                        <div class="id-header">전생 정보 증명서</div>
                         <div class="id-body">
                             <div class="id-photo-area" id="idPhoto">
                                 <div id="resultEmoji">❓</div>
                                 <img id="resultImage" class="hidden" src="">
                             </div>
                             <div class="id-data-area">
-                                <div class="data-row"><span class="label">IDENTIFIER</span><span id="resName" class="val">-</span></div>
-                                <div class="data-row"><span class="label">ERA_LOG</span><span id="resEra" class="val">-</span></div>
-                                <div class="data-row"><span class="label">CLASS_TYPE</span><span id="resJob" class="val">-</span></div>
-                                <div class="data-row"><span class="label">MBTI_MOD</span><span id="resMBTI" class="val">-</span></div>
+                                <div class="data-row"><span class="label">이름</span><span id="resName" class="val">-</span></div>
+                                <div class="data-row"><span class="label">시대</span><span id="resEra" class="val">-</span></div>
+                                <div class="data-row"><span class="label">직업</span><span id="resJob" class="val">-</span></div>
+                                <div class="data-row"><span class="label">본능유형</span><span id="resMBTI" class="val">-</span></div>
                             </div>
                         </div>
                         <div class="id-story" id="resStory">-</div>
                         <div class="id-footer">
                             <span id="resCrime">-</span>
-                            <div class="id-seal">VERIFIED</div>
+                            <div class="id-seal">인증됨</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 에드센스용 전문 기술 사양서 영역 -->
+                <!-- 운영 안내 영역 -->
                 <article class="tech-whitepaper">
-                    <h3>📘 시스템 운용 매뉴얼 및 기술 사양</h3>
-                    <p>본 DESTINY AI 시스템은 사용자가 입력한 비정형 데이터를 정밀 알고리즘으로 분석하여 최적의 운명 보고서를 도출합니다. 모든 데이터는 브라우저 기반의 로컬 샌드박스에서 처리되며, 외부 서버로의 무단 전송을 금지하여 개인정보 보호를 최우선으로 합니다. Teachable Machine을 활용한 형태학 분석은 텐서플로우 엔진을 기반으로 실시간 추론을 수행하며, 이는 조명 조건과 배경 노이즈에 따라 일부 오차가 발생할 수 있음을 명시합니다.</p>
-                    <p>인연 데이터 대조 시스템은 성명 수리학의 고전적 통계와 현대 확률론을 결합한 독자적 하이브리드 엔진을 사용합니다. 이는 단순한 재미를 넘어 인간관계의 심리적 안정감을 제공하는 데 목적이 있습니다. 가동 중인 모든 모듈은 정기적인 데이터 패치를 통해 최신성을 유지하며, 사용자 피드백을 반영하여 지속적으로 고도화되고 있습니다.</p>
+                    <h3>📘 시스템 이용 안내 및 기술 사양</h3>
+                    <p>본 운명 분석 시스템은 사용자가 입력한 데이터를 바탕으로 독자적인 알고리즘을 통해 결과를 도출합니다. 입력하신 개인정보와 사진 데이터는 외부로 전송되거나 서버에 저장되지 않으며, 오직 브라우저 내에서만 안전하게 처리됩니다.</p>
+                    <p>동물상 분석은 구글의 인공지능 모델을 활용하며, 사진의 조명이나 각도에 따라 결과가 달라질 수 있습니다. 모든 테스트는 즐거움을 위한 것이며, 과학적 근거보다는 흥미 위주로 감상해주시기 바랍니다.</p>
                 </article>
             </div>
         </main>
@@ -237,7 +243,7 @@
     <!-- 로딩 스크린 -->
     <div id="loading" class="hidden">
         <div class="loading-wrap">
-            <div class="glitch-text">CALCULATING...</div>
+            <div class="glitch-text">데이터 연산 중...</div>
         </div>
     </div>
 
