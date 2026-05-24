@@ -148,7 +148,32 @@ const pastLives = [
     }
 ];
 
-const fakeMBTIs = ["CUTE", "SEXY", "BABO", "GENIUS", "LAZY", "ACTIVE", "COOL", "ANGEL", "DEVIL", "RICH", "POOR", "FUNNY", "MYSTIC", "PURE", "CHIC", "SOFT"];
+const fakeMBTIs = [
+    { type: "SEXY", desc: "치명적인 매력의 소유자. 가만히 있어도 페로몬이 방출됩니다." },
+    { type: "CUTE", desc: "존재 자체가 귀요미. 숨만 쉬어도 주변 사람들이 녹아내립니다." },
+    { type: "BABO", desc: "순수함 100%. 가끔 자기 신발 좌우를 헷갈리지만 착합니다." },
+    { type: "GENIUS", desc: "뇌섹남/뇌섹녀. 하지만 리모컨 찾는 법은 모를 수도 있습니다." },
+    { type: "LAZY", desc: "움직이는 것을 싫어함. 숨쉬기도 가끔 귀찮아하는 나무늘보과." },
+    { type: "ACTIVE", desc: "에너자이저. 잠들기 직전까지 가만히 있지 못하는 타입." },
+    { type: "COOL", desc: "차도남/차도녀. 하지만 속은 따뜻한 붕어빵 같은 사람." },
+    { type: "ANGEL", desc: "날개 없는 천사. 남의 부탁을 거절 못해 고생하기도 합니다." },
+    { type: "DEVIL", desc: "장난꾸러기 악마. 남 괴롭히는 걸 즐기지만 미워할 수 없죠." },
+    { type: "RICH", desc: "정신적 부자. 통장 잔고와 상관없이 마음만은 빌게이츠." },
+    { type: "POOR", desc: "텅장 소유자. 하지만 쇼핑할 때만큼은 누구보다 행복합니다." },
+    { type: "FUNNY", desc: "뼈그맨. 당신이 입만 열면 주변이 웃음바다가 됩니다." },
+    { type: "MYSTIC", desc: "신비주의. 가끔 자기 자신도 자기가 누군지 모를 때가 있습니다." },
+    { type: "PURE", desc: "맑고 깨끗한 영혼. 동화 속에서 방금 튀어나온 것 같습니다." },
+    { type: "CHIC", desc: "세련된 도시인. 무심한 듯 챙겨주는 츤데레의 정석." },
+    { type: "SOFT", desc: "말랑말랑한 성격. 누구와도 잘 어울리는 인간 마시멜로." },
+    { type: "SLEEPY", desc: "잠만보. 서서도 잘 수 있는 놀라운 능력을 가졌습니다." },
+    { type: "HUNGRY", desc: "항상 배고픈 영혼. 밥 먹으면서 다음 끼니를 고민합니다." },
+    { type: "BRAVE", desc: "용감한 전사. 바퀴벌레 앞에서도 (아마도) 당당합니다." },
+    { type: "SHY", desc: "부끄럼쟁이. 칭찬 한마디에 얼굴이 토마토가 됩니다." },
+    { type: "GRUMPY", desc: "투덜이 스머프. 투덜거리지만 할 일은 다 하는 스타일." },
+    { type: "HAPPY", desc: "행복 전도사. 세상 모든 것이 즐겁고 아름다워 보입니다." },
+    { type: "WEIRD", desc: "4차원. 독특한 사고방식으로 주변을 당황시키곤 합니다." },
+    { type: "SASSY", desc: "당당한 매력. 자기주장이 강하고 할 말은 꼭 해야 합니다." }
+];
 
 const magicSentences = [
     "오늘의 운세: 주머니에서 천 원짜리 지폐를 발견할 확률 87%!",
@@ -179,6 +204,35 @@ const name2Input = document.getElementById('name2');
 const compatResult = document.getElementById('compatResult');
 const magicContent = document.getElementById('magicContent');
 
+// 섹션 전환 함수
+function showSection(sectionId) {
+    const sections = document.querySelectorAll('.content-section');
+    sections.forEach(s => s.classList.add('hidden'));
+    document.getElementById(`${sectionId}-section`).classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// 가짜 MBTI 로직
+const mbtiBtn = document.getElementById('mbtiBtn');
+mbtiBtn.addEventListener('click', () => {
+    const name = document.getElementById('mbtiName').value.trim();
+    if (!name) {
+        alert('이름을 입력해야 결과를 분석하죠!');
+        return;
+    }
+    
+    const resultDiv = document.getElementById('mbtiResult');
+    const mbtiValue = document.getElementById('mbtiValue');
+    const mbtiDesc = document.getElementById('mbtiDesc');
+    
+    const randomIdx = Math.floor(Math.random() * fakeMBTIs.length);
+    const result = fakeMBTIs[randomIdx];
+    
+    mbtiValue.innerText = result.type;
+    mbtiDesc.innerText = result.desc;
+    resultDiv.classList.remove('hidden');
+});
+
 // 궁합 확인 로직
 compatBtn.addEventListener('click', () => {
     const n1 = name1Input.value.trim();
@@ -189,7 +243,6 @@ compatBtn.addEventListener('click', () => {
         return;
     }
 
-    // 이름 글자 수 등을 이용한 가짜 점수 계산
     const score = ((n1.length + n2.length) * 7 + (n1.charCodeAt(0) + n2.charCodeAt(0))) % 101;
     let comment = "";
     if (score > 90) comment = "환상의 짝꿍! 전생에 부부였을지도?";
@@ -238,32 +291,44 @@ function recommendMeal(type) {
     mealResult.classList.remove('hidden');
 }
 
-// Teachable Machine AI 로직
+// Teachable Machine AI 로직 개선
 const TM_URL = "https://teachablemachine.withgoogle.com/models/wqmtkx1OP/";
 let model, webcam, labelContainer, maxPredictions;
 
 async function initAI() {
-    const modelURL = TM_URL + "model.json";
-    const metadataURL = TM_URL + "metadata.json";
+    const startBtn = document.getElementById('startAiBtn');
+    const aiLoading = document.getElementById('aiLoading');
+    
+    startBtn.disabled = true;
+    aiLoading.classList.remove('hidden');
+    document.getElementById('label-container').innerHTML = "AI 모델 다운로드 중... (데이터가 커서 시간이 걸려요)";
 
-    // 모델 로드 중 표시
-    document.getElementById('label-container').innerHTML = "모델을 불러오는 중... 잠시만 기다려주세요.";
+    try {
+        const modelURL = TM_URL + "model.json";
+        const metadataURL = TM_URL + "metadata.json";
 
-    model = await tmImage.load(modelURL, metadataURL);
-    maxPredictions = model.getTotalClasses();
+        model = await tmImage.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
 
-    const flip = true;
-    webcam = new tmImage.Webcam(200, 200, flip);
-    await webcam.setup();
-    await webcam.play();
-    window.requestAnimationFrame(loopAI);
+        const flip = true;
+        webcam = new tmImage.Webcam(250, 250, flip);
+        await webcam.setup();
+        await webcam.play();
+        window.requestAnimationFrame(loopAI);
 
-    document.getElementById("webcam-container").innerHTML = ""; // 초기화
-    document.getElementById("webcam-container").appendChild(webcam.canvas);
-    labelContainer = document.getElementById("label-container");
-    labelContainer.innerHTML = "";
-    for (let i = 0; i < maxPredictions; i++) {
-        labelContainer.appendChild(document.createElement("div"));
+        document.getElementById("webcam-container").innerHTML = "";
+        document.getElementById("webcam-container").appendChild(webcam.canvas);
+        labelContainer = document.getElementById("label-container");
+        labelContainer.innerHTML = "";
+        for (let i = 0; i < maxPredictions; i++) {
+            labelContainer.appendChild(document.createElement("div"));
+        }
+        
+        aiLoading.classList.add('hidden');
+    } catch (e) {
+        alert('카메라 권한을 허용해주시거나, 잠시 후 다시 시도해주세요.');
+        startBtn.disabled = false;
+        aiLoading.classList.add('hidden');
     }
 }
 
@@ -279,9 +344,8 @@ async function predictAI() {
         const className = prediction[i].className;
         const prob = (prediction[i].probability * 100).toFixed(0);
         
-        // 시각적으로 더 보기 좋게 출력
         let displayClass = className === "dog" ? "🐶 강아지상" : "🐱 고양이상";
-        if (className === "Class 1") displayClass = "🐶 강아지상"; // 모델 클래스 이름에 따라 대응
+        if (className === "Class 1") displayClass = "🐶 강아지상";
         if (className === "Class 2") displayClass = "🐱 고양이상";
 
         labelContainer.childNodes[i].innerHTML = `${displayClass}: ${prob}%`;
@@ -308,27 +372,22 @@ issueBtn.addEventListener('click', () => {
         return;
     }
 
-    // 초기화 및 로딩 시작
     resultCard.classList.add('hidden');
     loadingDiv.classList.remove('hidden');
     issueBtn.disabled = true;
 
-    // 사진 처리 (미리 읽어두기)
     let photoURL = null;
     if (photoFile) {
         photoURL = URL.createObjectURL(photoFile);
     }
 
-    // 1초 가짜 로딩
     setTimeout(() => {
         loadingDiv.classList.add('hidden');
         resultCard.classList.remove('hidden');
         issueBtn.disabled = false;
 
-        // 랜덤 결과 뽑기
         const randomLife = pastLives[Math.floor(Math.random() * pastLives.length)];
 
-        // 데이터 반영
         document.getElementById('resName').innerText = name;
         document.getElementById('resBirth').innerText = birth;
         document.getElementById('resEra').innerText = randomLife.era;
@@ -336,11 +395,9 @@ issueBtn.addEventListener('click', () => {
         document.getElementById('resStory').innerText = randomLife.story;
         document.getElementById('resCrime').innerText = randomLife.crime;
         
-        // 가짜 MBTI 추가
         const randomMBTI = fakeMBTIs[Math.floor(Math.random() * fakeMBTIs.length)];
-        document.getElementById('resMBTI').innerText = randomMBTI;
+        document.getElementById('resMBTI').innerText = randomMBTI.type;
         
-        // 사진 또는 이모지 표시
         const resultEmoji = document.getElementById('resultEmoji');
         const resultImage = document.getElementById('resultImage');
         
@@ -354,7 +411,6 @@ issueBtn.addEventListener('click', () => {
             resultEmoji.innerText = randomLife.emoji;
         }
         
-        // 시리얼 번호 랜덤 생성 (디테일)
         const serial = `ID-PAST-${Math.floor(1000 + Math.random() * 9000)}-${name.charCodeAt(0)}`;
         document.querySelector('.serial-no').innerText = serial;
 

@@ -184,6 +184,43 @@ button:active {
     to { opacity: 1; transform: translateY(0); }
 }
 
+.service-menu {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.service-menu button {
+    padding: 12px 5px;
+    font-size: 0.9rem;
+    background: white;
+    color: var(--black);
+    border: 3px solid var(--black);
+    box-shadow: 4px 4px 0px var(--black);
+    margin-bottom: 0;
+}
+
+.service-menu button:hover {
+    background: var(--bg-color);
+}
+
+.section-title {
+    font-family: 'Black Han Sans', sans-serif;
+    margin-bottom: 20px;
+    border-bottom: 4px solid var(--black);
+    display: inline-block;
+}
+
+.content-section {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 #webcam-container canvas {
     border: var(--border-width) solid var(--black);
     box-shadow: 4px 4px 0px var(--black);
