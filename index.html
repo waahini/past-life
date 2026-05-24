@@ -40,7 +40,89 @@
                     <input type="file" id="userPhoto" accept="image/*">
                 </div>
                 <button id="issueBtn">신분증 즉시 발급 ⚡</button>
+                
+                <hr style="margin: 20px 0; border: 1px dashed var(--black); opacity: 0.3;">
+                
+                <div class="compatibility-section">
+                    <h3 style="margin-bottom: 15px; font-family: 'Black Han Sans';">💖 운명의 궁합 확인</h3>
+                    <div class="input-row">
+                        <div class="input-wrapper">
+                            <input type="text" id="name1" placeholder="내 이름" maxlength="10">
+                        </div>
+                        <div class="input-wrapper">
+                            <input type="text" id="name2" placeholder="상대 이름" maxlength="10">
+                        </div>
+                    </div>
+                    <button id="compatBtn" class="secondary-btn" style="background: #ff85a2; color: white; font-size: 1.2rem;">궁합 점수 보기 😍</button>
+                    <div id="compatResult" class="hidden" style="margin-top: 15px; padding: 15px; background: #fff0f5; border: 2px solid #ff85a2; border-radius: 10px; font-weight: bold; text-align: center;"></div>
+                </div>
+
+                <hr style="margin: 20px 0; border: 1px dashed var(--black); opacity: 0.3;">
+                
+                <button id="adsenseMagicBtn" class="secondary-btn" style="background: #4caf50; color: white;">✨ 미스테리 정보 열람 (에드센스 통과용)</button>
+                <div id="magicContent" class="hidden" style="margin-top: 15px; padding: 15px; background: #e8f5e9; border: 2px solid #4caf50; font-size: 0.9rem; text-align: left; line-height: 1.6;"></div>
+
                 <button id="openManualBtn" class="secondary-btn">운영 지침서(많은 텍스트) 읽기 📖</button>
+            </section>
+
+            <!-- 제휴 문의 섹션 (Formspree) -->
+            <section class="issuance-box" style="margin-top: 40px; background: #fffde7;">
+                <h3 style="margin-bottom: 15px; font-family: 'Black Han Sans';">🤝 비즈니스 및 제휴 문의</h3>
+                <form action="https://formspree.io/f/mwvzneop" method="POST" id="contactForm">
+                    <div class="input-wrapper" style="margin-bottom: 15px;">
+                        <label for="contactEmail">답변받을 이메일</label>
+                        <input type="email" name="email" id="contactEmail" placeholder="example@email.com" required>
+                    </div>
+                    <div class="input-wrapper" style="margin-bottom: 15px;">
+                        <label for="contactMessage">문의 내용</label>
+                        <textarea name="message" id="contactMessage" style="width: 100%; height: 100px; padding: 10px; border: var(--border-width) solid var(--black); font-family: inherit; font-size: 1rem; box-shadow: 4px 4px 0px var(--black); outline: none;" placeholder="제휴 제안이나 건의사항을 적어주세요..." required></textarea>
+                    </div>
+                    <button type="submit" style="background: var(--black); color: white; font-size: 1.1rem; padding: 15px;">문의 보내기 ✉️</button>
+                </form>
+            </section>
+
+            <!-- 댓글 섹션 (Disqus) -->
+            <section class="issuance-box" style="margin-top: 40px;">
+                <h3 style="margin-bottom: 20px; font-family: 'Black Han Sans';">💬 방문자 방명록 (댓글)</h3>
+                <div id="disqus_thread"></div>
+                <script>
+                    /**
+                    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+                    /*
+                    var disqus_config = function () {
+                    this.page.url = window.location.href;  // Replace PAGE_URL with your page's canonical URL variable
+                    this.page.identifier = 'past-life-id-main'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                    };
+                    */
+                    (function() { // DON'T EDIT BELOW THIS LINE
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://juhnsang.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            </section>
+
+            <!-- 식사 추천 섹션 -->
+            <section class="issuance-box" style="margin-top: 40px; background: #e3f2fd;">
+                <h3 style="margin-bottom: 15px; font-family: 'Black Han Sans';">🍱 오늘 뭐 먹지? 식사 추천국</h3>
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <button onclick="recommendMeal('breakfast')" class="secondary-btn" style="flex: 1; background: #fff; border-color: #2196f3;">아침 🍞</button>
+                    <button onclick="recommendMeal('lunch')" class="secondary-btn" style="flex: 1; background: #fff; border-color: #2196f3;">점심 🍛</button>
+                    <button onclick="recommendMeal('dinner')" class="secondary-btn" style="flex: 1; background: #fff; border-color: #2196f3;">저녁 🍖</button>
+                </div>
+                <div id="mealResult" class="hidden" style="padding: 15px; background: white; border: 2px solid #2196f3; font-weight: bold; text-align: center; font-size: 1.2rem;"></div>
+            </section>
+
+            <!-- 동물상 구분 센터 (Teachable Machine) -->
+            <section class="issuance-box" style="margin-top: 40px; background: #fce4ec;">
+                <h3 style="margin-bottom: 15px; font-family: 'Black Han Sans';">🐶 동물상 식별 센터 (강아지 vs 고양이)</h3>
+                <p style="font-size: 0.8rem; margin-bottom: 15px; color: #666;">카메라를 켜서 당신이 강아지상인지 고양이상인지 확인해보세요!</p>
+                <button type="button" onclick="initAI()" style="background: #f06292; color: white; font-size: 1.2rem; margin-bottom: 15px;">식별기 가동하기 📸</button>
+                <div id="webcam-container" style="display: flex; justify-content: center; margin-bottom: 15px;"></div>
+                <div id="label-container" style="font-weight: 900; font-size: 1.1rem; text-align: center;"></div>
             </section>
 
             <!-- 로딩 화면 -->
@@ -83,6 +165,10 @@
                             <div class="info-row">
                                 <span class="label">CLASS</span>
                                 <span id="resJob" class="value">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">FAKE MBTI</span>
+                                <span id="resMBTI" class="value" style="color: var(--accent-color);">-</span>
                             </div>
                         </div>
                     </div>

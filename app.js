@@ -148,7 +148,22 @@ const pastLives = [
     }
 ];
 
+const fakeMBTIs = ["CUTE", "SEXY", "BABO", "GENIUS", "LAZY", "ACTIVE", "COOL", "ANGEL", "DEVIL", "RICH", "POOR", "FUNNY", "MYSTIC", "PURE", "CHIC", "SOFT"];
+
+const magicSentences = [
+    "오늘의 운세: 주머니에서 천 원짜리 지폐를 발견할 확률 87%!",
+    "전생에 당신은 아마도 세종대왕의 탕수육을 훔쳐 먹은 고양이였을 것입니다.",
+    "가짜 MBTI 연구 결과에 따르면, CUTE 타입은 숨만 쉬어도 매력이 방출된다고 합니다.",
+    "궁합 비결: 서로의 흑역사를 공유할 때 사랑은 200% 더 깊어집니다.",
+    "미래 예보: 조만간 아주 맛있는 떡볶이를 먹게 될 운명입니다.",
+    "당신의 전생 직업은 아마도 '구름 위에서 낮잠 자기 전문가'였을 가능성이 큽니다.",
+    "MBTI 분석: BABO 타입은 사실 천재적인 감각을 숨기고 있는 경우가 많습니다.",
+    "행운의 아이템: 한 짝만 남은 양말 (가방에 넣고 다니면 행운이 옵니다.)"
+];
+
 const issueBtn = document.getElementById('issueBtn');
+const compatBtn = document.getElementById('compatBtn');
+const adsenseMagicBtn = document.getElementById('adsenseMagicBtn');
 const openManualBtn = document.getElementById('openManualBtn');
 const closeManualBtn = document.getElementById('closeManualBtn');
 const manualModal = document.getElementById('manualModal');
@@ -158,6 +173,121 @@ const userBirthInput = document.getElementById('userBirth');
 const userPhotoInput = document.getElementById('userPhoto');
 const loadingDiv = document.getElementById('loading');
 const resultCard = document.getElementById('resultCard');
+
+const name1Input = document.getElementById('name1');
+const name2Input = document.getElementById('name2');
+const compatResult = document.getElementById('compatResult');
+const magicContent = document.getElementById('magicContent');
+
+// 궁합 확인 로직
+compatBtn.addEventListener('click', () => {
+    const n1 = name1Input.value.trim();
+    const n2 = name2Input.value.trim();
+
+    if (!n1 || !n2) {
+        alert('두 사람의 이름을 모두 입력해주세요!');
+        return;
+    }
+
+    // 이름 글자 수 등을 이용한 가짜 점수 계산
+    const score = ((n1.length + n2.length) * 7 + (n1.charCodeAt(0) + n2.charCodeAt(0))) % 101;
+    let comment = "";
+    if (score > 90) comment = "환상의 짝꿍! 전생에 부부였을지도?";
+    else if (score > 70) comment = "아주 좋은 사이입니다. 맛있는 거 먹으러 가세요.";
+    else if (score > 40) comment = "나쁘지 않아요. 조금 더 친해져 보세요!";
+    else comment = "음... 서로 노력이 필요한 사이네요. 힘내세요!";
+
+    compatResult.innerHTML = `💘 ${n1} & ${n2} 궁합 점수: <span style="font-size: 1.5rem; color: #ff4d4d;">${score}점</span><br><small>${comment}</small>`;
+    compatResult.classList.remove('hidden');
+});
+
+// 에드센스 매직 버튼 로직
+adsenseMagicBtn.addEventListener('click', () => {
+    const randomSentences = [];
+    for(let i=0; i<3; i++) {
+        randomSentences.push(magicSentences[Math.floor(Math.random() * magicSentences.length)]);
+    }
+    
+    magicContent.innerHTML = `
+        <h4 style="margin-bottom: 10px; color: #2e7d32;">📜 오늘의 미스테리 보고서</h4>
+        <ul style="padding-left: 20px;">
+            ${randomSentences.map(s => `<li style="margin-bottom: 5px;">${s}</li>`).join('')}
+        </ul>
+        <p style="margin-top: 10px; font-size: 0.8rem; color: #666;">* 이 데이터는 전생 관리국의 1급 기밀이며, 믿거나 말거나입니다.</p>
+    `;
+    magicContent.classList.remove('hidden');
+});
+
+// 식사 추천 데이터
+const meals = {
+    breakfast: ["시리얼과 우유", "토스트와 잼", "요거트와 견과류", "사과 한 알", "따뜻한 누룽지", "바나나", "삶은 계란"],
+    lunch: ["김치찌개", "돈까스", "제육덮밥", "샌드위치", "햄버거", "초밥", "쌀국수", "비빔밥", "라멘", "떡볶이"],
+    dinner: ["삼겹살", "치킨", "피자", "곱창", "마라탕", "스테이크", "회", "족발", "파스타", "닭발"]
+};
+
+function recommendMeal(type) {
+    const mealResult = document.getElementById('mealResult');
+    const options = meals[type];
+    const picked = options[Math.floor(Math.random() * options.length)];
+    
+    let emoji = "🍞";
+    if (type === 'lunch') emoji = "🍛";
+    if (type === 'dinner') emoji = "🍖";
+    
+    mealResult.innerHTML = `${emoji} 추천 메뉴: <span style="color: #2196f3;">${picked}</span> 어떠세요?`;
+    mealResult.classList.remove('hidden');
+}
+
+// Teachable Machine AI 로직
+const TM_URL = "https://teachablemachine.withgoogle.com/models/wqmtkx1OP/";
+let model, webcam, labelContainer, maxPredictions;
+
+async function initAI() {
+    const modelURL = TM_URL + "model.json";
+    const metadataURL = TM_URL + "metadata.json";
+
+    // 모델 로드 중 표시
+    document.getElementById('label-container').innerHTML = "모델을 불러오는 중... 잠시만 기다려주세요.";
+
+    model = await tmImage.load(modelURL, metadataURL);
+    maxPredictions = model.getTotalClasses();
+
+    const flip = true;
+    webcam = new tmImage.Webcam(200, 200, flip);
+    await webcam.setup();
+    await webcam.play();
+    window.requestAnimationFrame(loopAI);
+
+    document.getElementById("webcam-container").innerHTML = ""; // 초기화
+    document.getElementById("webcam-container").appendChild(webcam.canvas);
+    labelContainer = document.getElementById("label-container");
+    labelContainer.innerHTML = "";
+    for (let i = 0; i < maxPredictions; i++) {
+        labelContainer.appendChild(document.createElement("div"));
+    }
+}
+
+async function loopAI() {
+    webcam.update();
+    await predictAI();
+    window.requestAnimationFrame(loopAI);
+}
+
+async function predictAI() {
+    const prediction = await model.predict(webcam.canvas);
+    for (let i = 0; i < maxPredictions; i++) {
+        const className = prediction[i].className;
+        const prob = (prediction[i].probability * 100).toFixed(0);
+        
+        // 시각적으로 더 보기 좋게 출력
+        let displayClass = className === "dog" ? "🐶 강아지상" : "🐱 고양이상";
+        if (className === "Class 1") displayClass = "🐶 강아지상"; // 모델 클래스 이름에 따라 대응
+        if (className === "Class 2") displayClass = "🐱 고양이상";
+
+        labelContainer.childNodes[i].innerHTML = `${displayClass}: ${prob}%`;
+        labelContainer.childNodes[i].style.color = prob > 50 ? "#f06292" : "#333";
+    }
+}
 
 // 모달 열기/닫기
 openManualBtn.addEventListener('click', () => manualModal.classList.remove('hidden'));
@@ -205,6 +335,10 @@ issueBtn.addEventListener('click', () => {
         document.getElementById('resJob').innerText = randomLife.job;
         document.getElementById('resStory').innerText = randomLife.story;
         document.getElementById('resCrime').innerText = randomLife.crime;
+        
+        // 가짜 MBTI 추가
+        const randomMBTI = fakeMBTIs[Math.floor(Math.random() * fakeMBTIs.length)];
+        document.getElementById('resMBTI').innerText = randomMBTI;
         
         // 사진 또는 이모지 표시
         const resultEmoji = document.getElementById('resultEmoji');

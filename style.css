@@ -160,6 +160,36 @@ button:active {
     margin-top: 10px;
 }
 
+.compatibility-section {
+    padding: 10px;
+    border: 2px solid #eee;
+    background: #fafafa;
+}
+
+#compatResult {
+    animation: fadeIn 0.5s ease-in;
+}
+
+#magicContent {
+    animation: slideDown 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#webcam-container canvas {
+    border: var(--border-width) solid var(--black);
+    box-shadow: 4px 4px 0px var(--black);
+    border-radius: 10px;
+}
+
 /* 로딩 화면 */
 #loading {
     margin: 40px 0;
